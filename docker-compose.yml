@@ -43,7 +43,7 @@ services:
       - ./scylladb-data:/var/lib/db
   elastic:
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
     environment:
       - discovery.type=single-node
       - http.host=0.0.0.0
