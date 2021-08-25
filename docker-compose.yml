@@ -14,7 +14,7 @@ services:
       - "8184:8184"
     depends_on:
       - db
-      - index
+      - elastic
       
   db:
     container_name: scylladb
@@ -34,28 +34,32 @@ services:
       # Prometheus monitoring
       - "9180:9180"
       - "9100:9100"
-#     healthcheck:
-#       test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
-#       interval: 30s
-#       timeout: 10s
-#       retries: 5
+    healthcheck:
+      test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     volumes:
-      - ./data/db/data:/var/lib/db
-  index:
+      - ./scylladb-data:/var/lib/db
+  elastic:
     container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.1
     environment:
-      - node.name=kifarunix-demo-es
-      - cluster.name=es-docker-cluster
       - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - ./data/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./es-data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 1s
+      timeout: 30s
+      retries: 30
+    user: "1000"
