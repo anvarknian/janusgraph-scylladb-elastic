@@ -40,17 +40,18 @@ services:
       - ./data/db/data:/var/lib/db
   index:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+    ports:
+     - "9200:9200"
+     - "9300:9300"
     environment:
       - discovery.type=single-node
       - http.host=0.0.0.0
       - transport.host=127.0.0.1
-#     healthcheck:
-#       test: ["CMD", "curl", "-f", "http://localhost:9200"]
-#       interval: 1s
-#       timeout: 30s
-#       retries: 30
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 1s
+      timeout: 30s
+      retries: 30
+    user: "1000"
     volumes:
-     - ./data/index/data:/usr/share/index/data
+     - ./data/elasticsearch/data:/usr/share/elasticsearch/data
