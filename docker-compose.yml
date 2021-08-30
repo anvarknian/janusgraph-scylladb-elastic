@@ -59,8 +59,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - elastic:/usr/share/elasticsearch/data
+#     volumes:
+#       - elastic:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -80,5 +80,5 @@ volumes:
     driver: local
   scylladb:
     driver: local
-  elastic:
-    driver: local
+#   elastic:
+#     driver: local
