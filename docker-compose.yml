@@ -13,7 +13,7 @@ services:
       - "8182:8182"
       - "8184:8184"
     volumes:
-      - "janusgraph-data:/var/lib/janusgraph"
+      - "./janusgraph-data:/var/lib/janusgraph"
     depends_on:
       - db
       - elastic
