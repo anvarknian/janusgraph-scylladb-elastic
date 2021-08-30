@@ -81,4 +81,4 @@ volumes:
   scylladb:
     driver: local
  elastic:
-   driver: local
+    driver: local
