@@ -45,7 +45,7 @@ services:
       - ./scylladb-data:/var/lib/db
   elastic:
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    image: elasticsearch:7.14.0
     environment:
       - discovery.type=single-node
     ulimits:
