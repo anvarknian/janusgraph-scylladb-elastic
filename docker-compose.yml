@@ -18,7 +18,7 @@ services:
       - local-network
     depends_on:
       - db
-      - elastic
+#       - elastic
       
   db:
     container_name: scylladb
@@ -48,30 +48,30 @@ services:
     networks:
       - local-network
       
-  elastic:
-    container_name: elasticsearch
-    image: elasticsearch:7.14.0
-    environment:
-      - discovery.type=single-node
-      - http.host=0.0.0.0
-      - transport.host=127.0.0.1
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - elastic:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9200"]
-      interval: 1s
-      timeout: 30s
-      retries: 30
-    networks:
-      - local-network
+#   elastic:
+#     container_name: elasticsearch
+#     image: elasticsearch:7.14.0
+#     environment:
+#       - discovery.type=single-node
+#       - http.host=0.0.0.0
+#       - transport.host=127.0.0.1
+#       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#     ulimits:
+#       memlock:
+#         soft: -1
+#         hard: -1
+#     volumes:
+#       - elastic:/usr/share/elasticsearch/data
+#     ports:
+#       - "9200:9200"
+#       - "9300:9300"
+#     healthcheck:
+#       test: ["CMD", "curl", "-f", "http://localhost:9200"]
+#       interval: 1s
+#       timeout: 30s
+#       retries: 30
+#     networks:
+#       - local-network
       
 networks:
     local-network:
@@ -81,5 +81,5 @@ volumes:
     driver: local
   scylladb:
     driver: local
-  elastic:
-    driver: local
+#   elastic:
+#     driver: local
