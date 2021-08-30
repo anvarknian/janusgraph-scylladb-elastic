@@ -5,7 +5,7 @@ Installation script:
 ```bash
 sudo chmod -R a+x *.sh
 ./install-docker.sh
-./run-containers.sh
+docker-compose -f docker-compose.yml up -d
 ```
 # Elasticsearch
 Run Elasticsearch with docker compose
