@@ -65,6 +65,7 @@ services:
     user: "1000"
     networks:
       - elastic
- networks:
-  elastic:
-    driver: bridge
+      
+networks:
+    elastic:
+      driver: bridge  
